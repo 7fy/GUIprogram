@@ -25,8 +25,8 @@
       <file leaf-file-name="MandelbrotModel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MandelbrotModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="738">
-              <caret line="50" column="61" lean-forward="false" selection-start-line="50" selection-start-column="39" selection-end-line="50" selection-end-column="61" />
+            <state relative-caret-position="51">
+              <caret line="36" column="5" lean-forward="true" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
               <folding>
                 <element signature="e#914#915#0" expanded="true" />
                 <element signature="e#942#943#0" expanded="true" />
@@ -48,12 +48,12 @@
       <file leaf-file-name="MandelbrotDelegate.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MandelbrotDelegate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="163" column="21" lean-forward="true" selection-start-line="163" selection-start-column="21" selection-end-line="163" selection-end-column="21" />
+            <state relative-caret-position="505">
+              <caret line="184" column="8" lean-forward="true" selection-start-line="184" selection-start-column="8" selection-end-line="184" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6943#6944#0" expanded="true" />
-                <element signature="e#7000#7001#0" expanded="true" />
+                <element signature="e#7014#7015#0" expanded="true" />
+                <element signature="e#7071#7072#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -308,12 +308,12 @@
       <updated>1511361697915</updated>
       <workItem from="1511361700841" duration="11727000" />
       <workItem from="1511374348067" duration="2817000" />
-      <workItem from="1511383346936" duration="14867000" />
+      <workItem from="1511383346936" duration="16221000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29411000" />
+    <option name="totallyTimeSpent" value="30765000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="0" width="1920" height="1080" extended-state="6" />
@@ -328,7 +328,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32953367" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32953367" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32953367" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -375,8 +375,8 @@
           <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6943#6944#0" expanded="true" />
-            <element signature="e#7000#7001#0" expanded="true" />
+            <element signature="e#7014#7015#0" expanded="true" />
+            <element signature="e#7071#7072#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -444,8 +444,8 @@
           <caret line="60" column="31" lean-forward="false" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6943#6944#0" expanded="true" />
-            <element signature="e#7000#7001#0" expanded="true" />
+            <element signature="e#7014#7015#0" expanded="true" />
+            <element signature="e#7071#7072#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -490,13 +490,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MandelbroZoom.java">
+    <entry file="file://$PROJECT_DIR$/src/Mandelbrot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="37" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="18">
+          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -512,10 +510,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/MandelbroZoom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/MandelbrotModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="50" column="61" lean-forward="false" selection-start-line="50" selection-start-column="39" selection-end-line="50" selection-end-column="61" />
+        <state relative-caret-position="51">
+          <caret line="36" column="5" lean-forward="true" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
           <folding>
             <element signature="e#914#915#0" expanded="true" />
             <element signature="e#942#943#0" expanded="true" />
@@ -523,22 +529,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Mandelbrot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MandelbrotDelegate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="163" column="21" lean-forward="true" selection-start-line="163" selection-start-column="21" selection-end-line="163" selection-end-column="21" />
+        <state relative-caret-position="505">
+          <caret line="184" column="8" lean-forward="true" selection-start-line="184" selection-start-column="8" selection-end-line="184" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6943#6944#0" expanded="true" />
-            <element signature="e#7000#7001#0" expanded="true" />
+            <element signature="e#7014#7015#0" expanded="true" />
+            <element signature="e#7071#7072#0" expanded="true" />
           </folding>
         </state>
       </provider>

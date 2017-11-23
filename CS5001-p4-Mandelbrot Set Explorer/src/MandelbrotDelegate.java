@@ -153,11 +153,16 @@ public class MandelbrotDelegate implements Observer {
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
-
+                int x1 = mouseEvent.getX();
+                int y1 = mouseEvent.getY();
+                System.out.println("press: x :"+x1+ "     y :"+y1);
             }
 
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
+                int x2 = mouseEvent.getX();
+                int y2 = mouseEvent.getY();
+                System.out.println("release: x :"+x2+ "     y :"+y2);
 
             }
 
@@ -171,19 +176,14 @@ public class MandelbrotDelegate implements Observer {
 
             }
         });
-        mandelbrotPanel.addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent mouseEvent) {
 
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent mouseEvent) {
-
-            }
-        });
     }
 
+
+
+    public void zoom(){
+        
+    }
     public void update(Observable o, Object arg) {
 
         // Tell the SwingUtilities thread to update the GUI components.

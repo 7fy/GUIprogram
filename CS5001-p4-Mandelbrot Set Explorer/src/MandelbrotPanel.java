@@ -59,17 +59,18 @@ public class MandelbrotPanel extends JPanel {
 
     public void dragLine( Graphics g) {
 System.out.println("fff");
+
+        int x1 = mm.getxPress();
+        int x2 = mm.getxDrag();
+        int y1 = mm.getyPress();
+        int y2 = mm.getyDrag();
         if (mm.getColour()== 1) {
             g.setColor(Color.BLACK);
         } else {
             g.setColor(Color.WHITE);
         }
 
-        MandelbrotDelegate md = new MandelbrotDelegate(mm);
-        int x1 = md.xPress;
-        int x2 = md.xDrag;
-        int y1 = md.yPress;
-        int y2 = md.yDrag;
+
 
         int width = Math.abs(x2 - x1);
         int height = Math.abs(y2 - y1);

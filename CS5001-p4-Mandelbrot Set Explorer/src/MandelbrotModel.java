@@ -12,6 +12,10 @@ public class MandelbrotModel extends Observable {
     private double rs;
     private int colour;
     private boolean dragged;
+    public int xPress;
+    public int xDrag;
+    public int yPress;
+    public int yDrag;
 
 
     public void setDragged(boolean dragged) {
@@ -21,6 +25,8 @@ public class MandelbrotModel extends Observable {
     public boolean isDragged() {
         return dragged;
     }
+
+
     public MandelbrotModel() {
         getDefault();
         MandelbrotCalculator mc = new MandelbrotCalculator();
@@ -88,6 +94,21 @@ public class MandelbrotModel extends Observable {
         return ir;
     }
 
+    public int getxDrag() {
+        return xDrag;
+    }
+
+    public int getyPress() {
+        return yPress;
+    }
+
+    public int getyDrag() {
+        return yDrag;
+    }
+
+    public int getxPress() {
+        return xPress;
+    }
 
     public void setYR(int yR) {
         this.yR = yR;
@@ -113,6 +134,22 @@ public class MandelbrotModel extends Observable {
         this.maxI = maxI;
     }
 
+
+    public void setxDrag(int xDrag) {
+        this.xDrag = xDrag;
+    }
+
+    public void setxPress(int xPress) {
+        this.xPress = xPress;
+    }
+
+    public void setyDrag(int yDrag) {
+        this.yDrag = yDrag;
+    }
+
+    public void setyPress(int yPress) {
+        this.yPress = yPress;
+    }
 
     public double getMaxI() {
         return maxI;

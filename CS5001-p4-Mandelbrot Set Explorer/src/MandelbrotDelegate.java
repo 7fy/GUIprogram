@@ -240,6 +240,10 @@ public class MandelbrotDelegate implements Observer {
                 model.setDragged(dragged);
                 mandelbrotZoom.setX1(xPress);
                 mandelbrotZoom.setY1(yPress);
+
+
+                model.setxPress(xPress);
+                model.setyPress(yPress);
             }
 
             @Override
@@ -304,6 +308,7 @@ public class MandelbrotDelegate implements Observer {
                     model.setMaxR(maxR);
                     model.setMaxI(maxI);
                     model.setMinI(minI);
+                    model.setDragged(true);
                     model.createData();
                     mandelbrotPanel.repaint();
 
@@ -320,12 +325,16 @@ public class MandelbrotDelegate implements Observer {
 
             }
         });
+
         mandelbrotPanel.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent mouseEvent) {
 
                 xDrag = mouseEvent.getX();
                 yDrag  = mouseEvent.getY();
+
+                model.setyDrag(yDrag);
+                model.setxDrag(xDrag);
                 mandelbrotPanel.repaint();
 
             }

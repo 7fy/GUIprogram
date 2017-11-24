@@ -1,5 +1,8 @@
 import java.util.Stack;
 
+/**
+ * purpose: record setting for each operation
+ */
 public class MandelbrotRecord {
 
     Stack <Object[]> undo = new Stack<>();

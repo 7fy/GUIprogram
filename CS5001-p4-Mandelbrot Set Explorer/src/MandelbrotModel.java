@@ -175,77 +175,139 @@ public class MandelbrotModel extends Observable {
         return yPress;
     }
 
-
+    /**
+     * purpose:reset the xDrag
+     * @param xDrag
+     */
     public void setxDrag(int xDrag) {
         this.xDrag = xDrag;
     }
 
+    /**
+     * purpose:reset parameter
+     * @param xPress
+     */
     public void setxPress(int xPress) {
         this.xPress = xPress;
     }
 
+    /**
+     * purpose:reset parameter
+     * @param yDrag
+     */
     public void setyDrag(int yDrag) {
         this.yDrag = yDrag;
     }
 
+    /**
+     * purpose:reset parameter
+     * @param yPress
+     */
     public void setyPress(int yPress) {
         this.yPress = yPress;
     }
 
 
-
+    /**
+     * purpose:reset parameter
+     * @param yR
+     */
     public void setYR(int yR) {
         this.yR = yR;
     }
 
+    /**
+     * purpose:reset parameter
+     * @param xR
+     */
     public void setXR(int xR) {
         this.xR = xR;
     }
 
+    /**
+     * purpose:reset parameter
+     * @param minR
+     */
     public void setMinR(double minR) {
         this.minR = minR;
     }
 
+    /**
+     * purpose:reset parameter
+     * @param minI
+     */
     public void setMinI(double minI) {
         this.minI = minI;
     }
 
+    /**
+     * purpose:reset parameter
+     * @param maxR
+     */
     public void setMaxR(double maxR) {
         this.maxR = maxR;
     }
 
+    /**
+     * purpose:reset parameter
+     * @param maxI
+     */
     public void setMaxI(double maxI) {
         this.maxI = maxI;
     }
 
 
-
+    /**
+     * purpose:get parameter
+     * @return
+     */
     public double getMaxI() {
         return maxI;
     }
 
-
+    /**
+     * purpose:get parameter
+     * @return
+     */
     public double getMinI() {
         return minI;
     }
 
+    /**
+     * purpose:get parameter
+     * @return
+     */
     public double getMinR() {
         return minR;
     }
 
+    /**
+     * purpose:get parameter
+     * @return
+     */
     public double getMaxR() {
         return maxR;
     }
 
+    /**
+     * purpose:get parameter
+     * @return
+     */
     public int getXR() {
         return xR;
     }
 
+    /**
+     * purpose:get parameter
+     * @return
+     */
     public int getYR() {
         return yR;
     }
 
-
+    /**
+     * purpose: reset the default parameter
+     */
     public void getDefault() {
         this.minI = MandelbrotCalculator.INITIAL_MIN_IMAGINARY;
         this.maxI = MandelbrotCalculator.INITIAL_MAX_IMAGINARY;

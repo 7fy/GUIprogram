@@ -8,18 +8,8 @@ import java.util.Observer;
 
 import javax.swing.*;
 
-
 /**
- * The SimpleGuiDelegate class whose purpose is to render relevant state information stored in the model and make changes to the model state based on user events.
- * <p>
- * This class uses Swing to display the model state when the model changes. This is the view aspect of the delegate class.
- * It also listens for user input events (in the listeners defined below), translates these to appropriate calls to methods
- * defined in the model class so as to make changes to the model. This is the controller aspect of the delegate class.
- * The class implements Observer in order to permit it to be added as an observer of the model class.
- * When the model calls notifyObservers() (after executing setChanged())
- * the update(...) method below is called in order to update the view of the model.
- *
- * @author jonl
+ * purpose:observer, build the GUI.
  */
 public class MandelbrotDelegate implements Observer {
 
@@ -45,8 +35,9 @@ public class MandelbrotDelegate implements Observer {
     private MandelbrotRecord record = new MandelbrotRecord();
 
     /**
+     * purpose: the main function
      *
-     * @param model
+     * @param model the data model
      */
     public MandelbrotDelegate(MandelbrotModel model) {
 
@@ -65,7 +56,7 @@ public class MandelbrotDelegate implements Observer {
 
 
     /**
-     *
+     * purpose: set the toolbar
      */
     private void setupToolbar() {
         JMenuBar menu = new JMenuBar();
@@ -79,8 +70,7 @@ public class MandelbrotDelegate implements Observer {
         file.add(saveImage);
 
         menu.add(file);
-
-
+        // the load function for loading file
         load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new JFileChooser();
@@ -108,39 +98,35 @@ public class MandelbrotDelegate implements Observer {
                 }
             }
         });
-
+// the save function of saving current setting
         save.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
-                                   public void actionPerformed(ActionEvent e) {
-                                       JFileChooser jf = new JFileChooser();
-                                       File workingDirectory = new File(System.getProperty("user.dir"));
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jf = new JFileChooser();
+                File workingDirectory = new File(System.getProperty("user.dir"));
 
-                                       jf.setCurrentDirectory(workingDirectory);
-                                       int returnVal = jf.showSaveDialog(jf);
-                                       if (returnVal == JFileChooser.APPROVE_OPTION) {
-                                           File file = jf.getSelectedFile();
-                                           try {
-                                               System.out.println("File is " + file.toString());
-                                               FileOutputStream f = new FileOutputStream(file);
-                                               ObjectOutputStream o = new ObjectOutputStream(f);
-                                               o.writeObject(model.getData());
-                                               o.close();
-                                               f.close();
-                                           } catch (FileNotFoundException e1) {
-                                               e1.printStackTrace();
-                                           } catch (IOException e1) {
-                                               e1.printStackTrace();
-                                           }
-                                       }
-                                   }
-                               });
-
-//        saveImage.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent actionEvent) {
-//
-//            }
-//        });
+                jf.setCurrentDirectory(workingDirectory);
+                int returnVal = jf.showSaveDialog(jf);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = jf.getSelectedFile();
+                    try {
+                        System.out.println("File is " + file.toString());
+                        FileOutputStream f = new FileOutputStream(file);
+                        ObjectOutputStream o = new ObjectOutputStream(f);
+                        o.writeObject(model.getData());
+                        o.close();
+                        f.close();
+                    } catch (FileNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
 
 
+
+//add the button undo
         JButton undo = new JButton("Undo");
         undo.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
             public void actionPerformed(ActionEvent e) {
@@ -158,20 +144,7 @@ public class MandelbrotDelegate implements Observer {
             }
         });
 
-//        inputField.addKeyListener(new KeyListener(){        // to translate key event for the text filed into appropriate model method call
-//            public void keyPressed(KeyEvent e) {
-//                if(e.getKeyCode() == KeyEvent.VK_ENTER){
-//                    model.setIr(Integer.parseInt(inputField.getText()));    // tell model to add text entered by user
-//                    inputField.setText("");
-//// clear the input box in the GUI view
-//                }
-//            }
-//            public void keyReleased(KeyEvent e) {
-//            }
-//            public void keyTyped(KeyEvent e) {
-//            }
-//        });
-
+// add the button redo
         JButton redo = new JButton("Redo");
         redo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -189,6 +162,7 @@ public class MandelbrotDelegate implements Observer {
             }
         });
 
+        //add the button reset
         JButton reset = new JButton("Reset");
         reset.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
             public void actionPerformed(ActionEvent e) {
@@ -202,6 +176,7 @@ public class MandelbrotDelegate implements Observer {
             }
         });
 
+        // the color button
         JButton blue = new JButton("blue");
         blue.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
             public void actionPerformed(ActionEvent e) {
@@ -247,7 +222,7 @@ public class MandelbrotDelegate implements Observer {
 
         JLabel label1 = new JLabel("  Colour");
 
-
+// the apply button after input value in the text field, press it
         JButton apply_button = new JButton("Apply");       // to translate event for this button into appropriate model method call
         apply_button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -283,6 +258,9 @@ public class MandelbrotDelegate implements Observer {
         mainFrame.add(toolbar, BorderLayout.NORTH);
     }
 
+    /**
+     * purpose: set components.
+     */
     private void setupComponents() {
         mandelbrotPanel = new MandelbrotPanel(model);
         MandelbrotZoom mandelbrotZoom = new MandelbrotZoom();
@@ -301,11 +279,11 @@ public class MandelbrotDelegate implements Observer {
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
+// when mouse pressed, get the pressed point's coordinates.
 
+                xPress = mouseEvent.getX();
 
-                 xPress = mouseEvent.getX();
-
-                 yPress = mouseEvent.getY();
+                yPress = mouseEvent.getY();
                 boolean dragged = false;
                 model.setDragged(dragged);
                 mandelbrotZoom.setX1(xPress);
@@ -318,6 +296,8 @@ public class MandelbrotDelegate implements Observer {
 
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
+                // when mouse released , get the pressed point's coordinates.
+
                 int xPress = mandelbrotZoom.getX1();
                 int yPress = mandelbrotZoom.getY1();
                 int xRelease = mouseEvent.getX();
@@ -339,7 +319,7 @@ public class MandelbrotDelegate implements Observer {
                     mandelbrotZoom.setY1(yPress);
                     mandelbrotZoom.setY2(yRelease);
                 }
-
+//import coordinates to zoom
                 int x1 = mandelbrotZoom.getX1();
                 int x2 = mandelbrotZoom.getX2();
                 int y1 = mandelbrotZoom.getY1();
@@ -350,7 +330,7 @@ public class MandelbrotDelegate implements Observer {
                 mandelbrotZoom.setMinR(model.getMinR());
                 mandelbrotZoom.setXR(model.getXR());
                 mandelbrotZoom.setYR(model.getYR());
-
+// the judgement, if press and release in the same place, will not zoom
                 if (x1 != x2 && y1 != y2) {
                     double minR = mandelbrotZoom.reCalcMinR(x1);
                     double maxR = mandelbrotZoom.reCalcMaxR(x2);
@@ -358,7 +338,7 @@ public class MandelbrotDelegate implements Observer {
                     double maxI = mandelbrotZoom.reCalcMaxI(y2);
                     record.pushUndo(model.getData());
 
-
+// refit the bounds of the image.
                     if (abs(x2 - x1) > abs(y2 - y1)) {
                         int yR = mandelbrotZoom.reCalcYR(x1, x2, y1, y2);
                         System.out.println("yR" + yR);
@@ -378,7 +358,8 @@ public class MandelbrotDelegate implements Observer {
                     model.setMaxR(maxR);
                     model.setMaxI(maxI);
                     model.setMinI(minI);
-                    model.setDragged(true);
+                    model.setDragged(true);                    // send the information that the picture has been dragged
+
                     model.createModel();
                     mandelbrotPanel.repaint();
 
@@ -401,7 +382,7 @@ public class MandelbrotDelegate implements Observer {
             public void mouseDragged(MouseEvent mouseEvent) {
 
                 xDrag = mouseEvent.getX();
-                yDrag  = mouseEvent.getY();
+                yDrag = mouseEvent.getY();
 
                 model.setyDrag(yDrag);
                 model.setxDrag(xDrag);
@@ -417,7 +398,12 @@ public class MandelbrotDelegate implements Observer {
 
     }
 
-
+    /**
+     * purpose: update and repaint.
+     *
+     * @param o   model
+     * @param arg each object
+     */
     public void update(Observable o, Object arg) {
 
         // Tell the SwingUtilities thread to update the GUI components.

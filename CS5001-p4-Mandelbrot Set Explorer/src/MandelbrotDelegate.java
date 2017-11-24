@@ -2,7 +2,7 @@ import static java.lang.StrictMath.abs;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -31,19 +31,12 @@ public class MandelbrotDelegate implements Observer {
 
     private JToolBar toolbar;
     private JTextField inputField;
-    private JButton undo;
-    private JButton redo;
-    private JButton reset;
-    private JButton blue;
-    private JButton green;
-    private JButton red;
-    private JMenu file;
 
 
-    public int xDrag;
-    public int yDrag;
-    public int xPress;
-    public int yPress;
+    private int xDrag;
+    private int yDrag;
+    private int xPress;
+    private int yPress;
 
     private MandelbrotModel model;
 
@@ -51,10 +44,14 @@ public class MandelbrotDelegate implements Observer {
 
     private MandelbrotRecord record = new MandelbrotRecord();
 
+    /**
+     *
+     * @param model
+     */
     public MandelbrotDelegate(MandelbrotModel model) {
 
         this.model = model;
-        record.pushUndo(model.getData());
+//        record.pushUndo(model.getData());
         this.mainFrame = new JFrame();  // set up the main frame for this GUI
         toolbar = new JToolBar();
         inputField = new JTextField(TEXT_WIDTH);
@@ -68,38 +65,96 @@ public class MandelbrotDelegate implements Observer {
 
 
     /**
-     * Initialises the toolbar to contain the buttons, label, input field, etc. and adds the toolbar to the main frame.
-     * Listeners are created for the buttons and text field which translate user events to model object method calls (controller aspect of the delegate)
+     *
      */
-
     private void setupToolbar() {
+        JMenuBar menu = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenuItem save = new JMenuItem("Save");
         JMenuItem load = new JMenuItem("Load");
+        JMenuItem saveImage = new JMenuItem("save Image");
+
         file.add(save);
         file.add(load);
+        file.add(saveImage);
 
-        load.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
+        menu.add(file);
+
+
+        load.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                File workingDirectory = new File(System.getProperty("user.dir"));
+                fc.setCurrentDirectory(workingDirectory);
+                int returnVal = fc.showOpenDialog(fc);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    try {
 
+
+                        FileInputStream fi = new FileInputStream(file);
+                        ObjectInputStream oi = new ObjectInputStream(fi);
+
+                        model.setData((Object[]) oi.readObject());
+                        model.createModel();
+                        mandelbrotPanel.repaint();
+
+                        oi.close();
+                        fi.close();
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
             }
         });
 
-//        save.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
-//            public void actionPerformed(ActionEvent e) {
-//                JFileChooser jf = new JFileChooser();
-//                FileWriter.
+        save.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
+                                   public void actionPerformed(ActionEvent e) {
+                                       JFileChooser jf = new JFileChooser();
+                                       File workingDirectory = new File(System.getProperty("user.dir"));
+
+                                       jf.setCurrentDirectory(workingDirectory);
+                                       int returnVal = jf.showSaveDialog(jf);
+                                       if (returnVal == JFileChooser.APPROVE_OPTION) {
+                                           File file = jf.getSelectedFile();
+                                           try {
+                                               System.out.println("File is " + file.toString());
+                                               FileOutputStream f = new FileOutputStream(file);
+                                               ObjectOutputStream o = new ObjectOutputStream(f);
+                                               o.writeObject(model.getData());
+                                               o.close();
+                                               f.close();
+                                           } catch (FileNotFoundException e1) {
+                                               e1.printStackTrace();
+                                           } catch (IOException e1) {
+                                               e1.printStackTrace();
+                                           }
+                                       }
+                                   }
+                               });
+
+//        saveImage.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent actionEvent) {
+//
 //            }
 //        });
 
-            undo = new JButton("Undo");
+
+        JButton undo = new JButton("Undo");
         undo.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
             public void actionPerformed(ActionEvent e) {
-                record.pushRedo(model.getData());
-                Object[] data = record.popUndo();
-                model.setData(data);
-                model.createData();
-                mandelbrotPanel.repaint();
+                if (record.undo.isEmpty()) {
+                    System.out.println("fuck you");
+
+                } else {
+
+                    record.pushRedo(model.getData());
+                    Object[] data = record.popUndo();
+                    model.setData(data);
+                    model.createModel();
+                    mandelbrotPanel.repaint();
+                }
             }
         });
 
@@ -117,33 +172,37 @@ public class MandelbrotDelegate implements Observer {
 //            }
 //        });
 
-        redo = new JButton("Redo");
+        JButton redo = new JButton("Redo");
         redo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // should  call method in model class if you want it to affect
-                record.pushUndo(model.getData());
-                Object[] data = record.popRedo();
-                model.setData(data);
-                model.createData();
-                mandelbrotPanel.repaint();
+                if (record.redo.isEmpty()) {
+                    System.out.println("fuck you again");
+                } else {
+                    // should  call method in model class if you want it to affect
+                    record.pushUndo(model.getData());
+                    Object[] data = record.popRedo();
+                    model.setData(data);
+                    model.createModel();
+                    mandelbrotPanel.repaint();
 
+                }
             }
         });
 
-        reset = new JButton("Reset");
+        JButton reset = new JButton("Reset");
         reset.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
             public void actionPerformed(ActionEvent e) {
                 record.pushUndo(model.getData());
 
                 model.getDefault();
-                model.createData();
+                model.createModel();
                 mandelbrotPanel.repaint();
 
                 // should  call method in model class if you want it to affect model
             }
         });
 
-        blue = new JButton("blue");
+        JButton blue = new JButton("blue");
         blue.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
             public void actionPerformed(ActionEvent e) {
                 record.pushUndo(model.getData());
@@ -153,7 +212,7 @@ public class MandelbrotDelegate implements Observer {
             }
         });
 
-        green = new JButton("green");
+        JButton green = new JButton("green");
         green.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
             public void actionPerformed(ActionEvent e) {
                 record.pushUndo(model.getData());
@@ -163,11 +222,22 @@ public class MandelbrotDelegate implements Observer {
             }
         });
 
-        red = new JButton("red");
+        JButton red = new JButton("red");
         red.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
             public void actionPerformed(ActionEvent e) {
                 record.pushUndo(model.getData());
                 model.setColour(4);
+                mandelbrotPanel.repaint();
+
+            }
+        });
+
+
+        JButton white = new JButton("white");
+        white.addActionListener(new ActionListener() {     // to translate event for this button into appropriate model method call
+            public void actionPerformed(ActionEvent e) {
+                record.pushUndo(model.getData());
+                model.setColour(1);
                 mandelbrotPanel.repaint();
 
             }
@@ -184,7 +254,7 @@ public class MandelbrotDelegate implements Observer {
                 record.pushUndo(model.getData());
 
                 model.setIr(Integer.parseInt(inputField.getText()));        // same as when user presses carriage return key, tell model to add text entered by user
-                model.createData();
+                model.createModel();
                 mandelbrotPanel.repaint();
                 inputField.setText("");
 
@@ -193,9 +263,8 @@ public class MandelbrotDelegate implements Observer {
         });
 
         // add buttons, label, and textfield to the toolbar
-        toolbar.add(file);
-        file.add(save);
-        file.add(load);
+        mainFrame.setJMenuBar(menu);
+
         toolbar.add(undo);
         toolbar.add(redo);
         toolbar.add(reset);
@@ -204,6 +273,7 @@ public class MandelbrotDelegate implements Observer {
         toolbar.add(blue);
         toolbar.add(green);
         toolbar.add(red);
+        toolbar.add(white);
 
 
         toolbar.add(label);
@@ -309,7 +379,7 @@ public class MandelbrotDelegate implements Observer {
                     model.setMaxI(maxI);
                     model.setMinI(minI);
                     model.setDragged(true);
-                    model.createData();
+                    model.createModel();
                     mandelbrotPanel.repaint();
 
                 }

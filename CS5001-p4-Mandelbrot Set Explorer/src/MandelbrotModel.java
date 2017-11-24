@@ -1,8 +1,11 @@
 import java.util.Observable;
 
+/**
+ * purpose: save the model information and transfer data in model.
+ */
 public class MandelbrotModel extends Observable {
-    private int xR ;
-    private int yR ;
+    private int xR;
+    private int yR;
     private int[][] model;
     private double minR;
     private double maxR;
@@ -12,21 +15,15 @@ public class MandelbrotModel extends Observable {
     private double rs;
     private int colour;
     private boolean dragged;
-    public int xPress;
-    public int xDrag;
-    public int yPress;
-    public int yDrag;
+    private int xPress;
+    private int xDrag;
+    private int yPress;
+    private int yDrag;
 
 
-    public void setDragged(boolean dragged) {
-        this.dragged = dragged;
-    }
-
-    public boolean isDragged() {
-        return dragged;
-    }
-
-
+    /**
+     * purpose: create the default model.
+     */
     public MandelbrotModel() {
         getDefault();
         MandelbrotCalculator mc = new MandelbrotCalculator();
@@ -34,6 +31,21 @@ public class MandelbrotModel extends Observable {
 
     }
 
+    /**
+     * purpose: recreate model using current parameters and conditions.
+     */
+    public void createModel() {
+        MandelbrotCalculator mc = new MandelbrotCalculator();
+        System.out.println("xr" + xR + "yR" + yR);
+        this.model = mc.calcMandelbrotSet(xR, yR, minR, maxR, minI, maxI, ir, rs);
+    }
+    //regenerate data after the parameter changed
+
+    /**
+     * purpose:output the information of the model.
+     *
+     * @return the information of current model
+     */
     public Object[] getData() {
 
         Object[] data = new Object[8];
@@ -49,9 +61,12 @@ public class MandelbrotModel extends Observable {
     }
 
 
-
-
-    public void setData(Object[] data){
+    /**
+     * purpose: reset the information of the model.
+     *
+     * @param data the information of the model
+     */
+    public void setData(Object[] data) {
         this.xR = (int) data[0];
         this.yR = (int) data[1];
         this.minR = (double) data[2];
@@ -60,55 +75,124 @@ public class MandelbrotModel extends Observable {
         this.maxI = (double) data[5];
         this.ir = (int) data[6];
         this.colour = (int) data[7];
+        notifyObservers();
 
     }
-
-    public void createData() {
-        MandelbrotCalculator mc = new MandelbrotCalculator();
-        System.out.println("xr"+xR+"yR"+yR);
-        this.model = mc.calcMandelbrotSet(xR, yR, minR, maxR, minI, maxI, ir, rs);
+    /**
+     * purpose: reset the dragged boolean.
+     *
+     * @param dragged judge that whether the mouse has dragged
+     */
+    public void setDragged(boolean dragged) {
+        this.dragged = dragged;
     }
-    //regenerate data after the parameter changed
 
+
+    /**
+     * purpose: output the information of whether has dragged.
+     *
+     * @return whether the mouse has dragged
+     */
+    public boolean isDragged() {
+        return dragged;
+    }
+
+    /**
+     * purpose: set the max iterations parameter.
+     * @param ir the max iterations parameter
+     */
     public void setIr(int ir) {
         this.ir = ir;
     }
 
-
-    public int getColour() {
-        return colour;
-    }
-
-
-    public void setColour(int colour) {
-        this.colour = colour;
-    }
-
-    public int[][] getModel() {
-        return model;
-    }
-
+    /**
+     * purpose: get the value of current max iterations parameter.
+     * @return the value of current max iterations parameter.
+     */
     public int getIr() {
-//        System.out.println(ir);
 
         return ir;
     }
 
+    /**
+     * purpose: get the parameter of image colour.
+     * @return the parameter of image colour.
+     */
+    public int getColour() {
+        return colour;
+    }
+
+    /**
+     * purpose: set the colour.
+     * @param colour the parameter of image's colour.
+     */
+    public void setColour(int colour) {
+        this.colour = colour;
+    }
+
+
+    /**
+     * purpose: get current model data.
+     * @return current model data
+     */
+    public int[][] getModel() {
+        return model;
+    }
+
+    /**
+     * purpose: get the value of vector x when dragging mouse.
+     * @return the value of vector x when dragging mouse.
+     */
     public int getxDrag() {
         return xDrag;
     }
 
-    public int getyPress() {
-        return yPress;
-    }
 
+
+    /**
+     * purpose: get the value of vector y when dragging mouse.
+     * @return the value of vector y when dragging mouse.
+     */
     public int getyDrag() {
         return yDrag;
     }
 
+
+    /**
+     * purpose: get the value of vector x when pressing mouse.
+     * @return the value of vector x when pressing mouse.
+     */
     public int getxPress() {
         return xPress;
     }
+
+
+    /**
+     * purpose: get the value of vector y when pressing mouse.
+     * @return the value of vector y when pressing mouse.
+     */
+    public int getyPress() {
+        return yPress;
+    }
+
+
+    public void setxDrag(int xDrag) {
+        this.xDrag = xDrag;
+    }
+
+    public void setxPress(int xPress) {
+        this.xPress = xPress;
+    }
+
+    public void setyDrag(int yDrag) {
+        this.yDrag = yDrag;
+    }
+
+    public void setyPress(int yPress) {
+        this.yPress = yPress;
+    }
+
+
 
     public void setYR(int yR) {
         this.yR = yR;
@@ -135,21 +219,6 @@ public class MandelbrotModel extends Observable {
     }
 
 
-    public void setxDrag(int xDrag) {
-        this.xDrag = xDrag;
-    }
-
-    public void setxPress(int xPress) {
-        this.xPress = xPress;
-    }
-
-    public void setyDrag(int yDrag) {
-        this.yDrag = yDrag;
-    }
-
-    public void setyPress(int yPress) {
-        this.yPress = yPress;
-    }
 
     public double getMaxI() {
         return maxI;

@@ -4,35 +4,92 @@ import java.awt.*;
 public class MandelbrotPanel extends JPanel {
     MandelbrotModel mm;
 
+
     public MandelbrotPanel(MandelbrotModel mm) {
         this.mm = mm;
     }
 
     @Override
     public void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    int[][] model = mm.getModel();
-    int ir = mm.getIr();
+        System.out.println("rre");
 
-    for(int x =0; x<model.length;x++){
+        super.paintComponent(g);
 
-        for(int y=0;y<model.length;y++){
-            if (model[x][y]>=ir){
+        int[][] model = mm.getModel();
+        int ir = mm.getIr();
+        int colour = mm.getColour();
+        for (int x = 0; x < model.length; x++) {
+
+            for (int y = 0; y < model[0].length; y++) {
+
+
+                if (model[x][y] >= ir) {
 //                System.out.println(x);
 //                System.out.println(y);
 
-                g.setColor(Color.black);
-                g.drawLine(y,x,y,x);//画一个点。
-            }else{
-//                System.out.println("sds"+x);
-//                System.out.println(y);
-                g.setColor(Color.white);
-                g.drawLine(y,x,y,x);
+                    g.setColor(Color.black);
+                    g.drawLine(y, x, y, x);//画一个点。
+
+                }else{
+                    float a = (float)model[x][y]/ir;
+                    if (colour ==1) {
+                        g.setColor(Color.white);
+                    }else if (colour ==2){//blue
+                        g.setColor(new Color(0,0,a));
+                    }else if (colour ==3){//green
+                        g.setColor(new Color(0,a,0));
+                    }else if (colour ==4){//red
+                        g.setColor(new Color(a,0,0));
+                    }
+
+                    g.drawLine(y, x, y, x);
+                }
             }
+
+        }
+        if(!mm.isDragged()) {
+            dragLine(g);
         }
 
-    }
+//        Graphics2D g2 = (Graphics2D) g;
+//        g2.setPaint(new GradientPaint(0,0,new Color(116,149,226),getWidth(),getHeight(),new Color(199,212,247)));
+//        g2.fillRect(0,0,getWidth(),getHeight());
 
     }
 
+    public void dragLine( Graphics g) {
+System.out.println("fff");
+        if (mm.getColour()== 1) {
+            g.setColor(Color.BLACK);
+        } else {
+            g.setColor(Color.WHITE);
+        }
+
+        MandelbrotDelegate md = new MandelbrotDelegate(mm);
+        int x1 = md.xPress;
+        int x2 = md.xDrag;
+        int y1 = md.yPress;
+        int y2 = md.yDrag;
+
+        int width = Math.abs(x2 - x1);
+        int height = Math.abs(y2 - y1);
+
+        if (x2 > x1) {
+            if (y2 > y1) {
+
+                g.drawRect(x1, y1, width, height);
+            } else {
+                g.setColor(Color.WHITE);
+                g.drawRect(x1, y2, width, height);
+            }
+        } else {
+            if (y2 > y1) {
+                g.setColor(Color.WHITE);
+                g.drawRect(x2, y1, width, height);
+            } else {
+                g.setColor(Color.WHITE);
+                g.drawRect(x2, y2, width, height);
+            }
+        }
+    }
 }
